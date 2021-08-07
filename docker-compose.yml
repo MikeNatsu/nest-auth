@@ -4,14 +4,27 @@ services:
     build: .
     environment:
       - PORT=3000
-    deploy:
-      replicas: 5
-      restart_policy:
-        max_attempts: 3
-        condition: on-failure
-      update_config:
-        parallelism: 3
-        delay: 10s
+    depends_on:
+      - mongo
+      - redis
+  app1:
+    build: .
+    environment:
+      - PORT=3000
+    depends_on:
+      - mongo
+      - redis
+  app2:
+    build: .
+    environment:
+      - PORT=3000
+    depends_on:
+      - mongo
+      - redis
+  app3:
+    build: .
+    environment:
+      - PORT=3000
     depends_on:
       - mongo
       - redis
